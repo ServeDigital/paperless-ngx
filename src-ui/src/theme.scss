@@ -1,13 +1,14 @@
 @use "sass:color";
-@mixin paperless-green {
-  // base color e.g. #17541f = hsl(128, 57%, 21%)
-  --pngx-primary: 128, 57%;
-  --pngx-primary-lightness: 21%;
+@mixin goldleaf-gold {
+  // Gold Leaf Holdings brand colour #FCB51B = hsl(41, 97%, 55%)
+  --pngx-primary: 41, 97%;
+  --pngx-primary-lightness: 55%;
 }
 
 :root {
-  @include paperless-green;
-  --pngx-primary-text-contrast: var(--bs-light);
+  @include goldleaf-gold;
+  // Gold is a light colour — use dark text for contrast (WCAG AA). #212529 = $text-color-light-bg
+  --pngx-primary-text-contrast: #212529;
 
   --bs-primary: hsl(var(--pngx-primary), var(--pngx-primary-lightness));
   --bs-border-color: var(--bs-gray-400);
@@ -66,9 +67,14 @@ $form-check-radio-checked-bg-image-dark: url("data:image/svg+xml,<svg xmlns='htt
   color: var(--pngx-primary-text-contrast);
 }
 
-// Dark mode
+// Dark mode — slightly darken gold so it's not too glaring on dark backgrounds
 @mixin paperless-green-dark-mode {
-  --pngx-primary-lightness: 31%;
+  --pngx-primary-lightness: 45%;
+  --bs-primary: hsl(var(--pngx-primary),var(--pngx-primary-lightness));
+}
+
+@mixin goldleaf-gold-dark-mode {
+  --pngx-primary-lightness: 45%;
   --bs-primary: hsl(var(--pngx-primary),var(--pngx-primary-lightness));
 }
 
@@ -329,7 +335,7 @@ $form-check-radio-checked-bg-image-dark: url("data:image/svg+xml,<svg xmlns='htt
 
     .navbar.bg-primary {
       // navbar is og green in dark mode
-      @include paperless-green;
+      @include goldleaf-gold;
     }
   }
 
@@ -342,15 +348,15 @@ $form-check-radio-checked-bg-image-dark: url("data:image/svg+xml,<svg xmlns='htt
     body {
       // no custom theme color
       &:not(.primary-light):not(.primary-dark) {
-        @include paperless-green-dark-mode;
+        @include goldleaf-gold-dark-mode;
 
         .navbar.bg-primary {
           // navbar is og green in dark mode
-          @include paperless-green;
+          @include goldleaf-gold;
         }
 
         .navbar.bg-primary .dropdown-menu {
-          @include paperless-green-dark-mode;
+          @include goldleaf-gold-dark-mode;
         }
       }
 

@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   apiBaseUrl: 'http://localhost:8000/api/',
   apiVersion: '10',
-  appTitle: 'Paperless-ngx',
+  appTitle: 'Gold Leaf DMS',
   tag: 'dev',
   version: 'DEVELOPMENT',
   webSocketHost: 'localhost:8000',
