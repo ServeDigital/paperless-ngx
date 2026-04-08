@@ -36,8 +36,8 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           tags: |
-            edms/goldleaf-dms:latest
-            edms/goldleaf-dms:${{ steps.vars.outputs.sha_short }}
+            servedigital/goldleaf-dms:latest
+            servedigital/goldleaf-dms:${{ steps.vars.outputs.sha_short }}
 
   deploy:
     name: Deploy to Production VPS
