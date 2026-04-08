@@ -44,7 +44,10 @@ services:
       POSTGRES_USER: paperless
       POSTGRES_PASSWORD: paperless
   webserver:
-    image: ghcr.io/paperless-ngx/paperless-ngx:latest
+    # Local dev image built from the fork. Run once to build:
+    #   cd /home/davidokwii/eDMS/paperless-ngx && docker build -t goldleaf-dms:dev .
+    # Rebuild only when Python dependencies (pyproject.toml / uv.lock) change.
+    image: goldleaf-dms:dev
     restart: unless-stopped
     depends_on:
       - db
@@ -58,6 +61,13 @@ services:
       - media:/usr/src/paperless/media
       - ./export:/usr/src/paperless/export
       - ./consume:/usr/src/paperless/consume
+      # Full Python source — granian --reload watches for .py changes;
+      # Django templates live inside here and are read from disk on every request
+      - ../../src:/usr/src/paperless/src
+      # Static files into the collected static dir (WhiteNoise serves from here).
+      # WHITENOISE_AUTOREFRESH reads from disk on every request — no restart needed.
+      - ../../src/documents/static/base.css:/usr/src/paperless/static/base.css
+      - ../../src/documents/static/goldleaf_logo.png:/usr/src/paperless/static/goldleaf_logo.png
     env_file: docker-compose.env
     environment:
       PAPERLESS_REDIS: redis://broker:6379
@@ -66,6 +76,8 @@ services:
       PAPERLESS_TIKA_ENABLED: 1
       PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://gotenberg:3000
       PAPERLESS_TIKA_ENDPOINT: http://tika:9998
+      WHITENOISE_AUTOREFRESH: "true"
+      GRANIAN_RELOAD: "true"
   gotenberg:
     image: docker.io/gotenberg/gotenberg:8.27
     restart: unless-stopped

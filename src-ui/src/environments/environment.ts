@@ -4,12 +4,12 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://localhost:8000/api/',
-  apiVersion: '10',
+  apiBaseUrl: '/api/',
+  apiVersion: '9',
   appTitle: 'Gold Leaf DMS',
   tag: 'dev',
   version: 'DEVELOPMENT',
-  webSocketHost: 'localhost:8000',
+  webSocketHost: 'localhost:4200',
   webSocketProtocol: 'ws:',
   webSocketBaseUrl: '/ws/',
 }

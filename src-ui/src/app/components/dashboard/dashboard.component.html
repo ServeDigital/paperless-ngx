@@ -27,13 +27,7 @@
         </div>
       }
 
-      @if (settingsService.offerTour()) {
-        <div class="col">
-          <pngx-welcome-widget (dismiss)="completeTour()"></pngx-welcome-widget>
-        </div>
-      }
-
-      <ng-container *pngxIfPermissions="{ action: PermissionAction.View, type: PermissionType.SavedView }">
+<ng-container *pngxIfPermissions="{ action: PermissionAction.View, type: PermissionType.SavedView }">
         @if (!settingsService.offerTour() && savedViewService.allViews.length === 0) {
           <div class="col">
             <div class="card shadow-sm bg-light opacity-50">
