@@ -165,7 +165,37 @@ Changes:
 
 ---
 
-## 7. Register the `file-earmark-pdf` icon (if adding PDF Tools nav item)
+## 7. Favicon — replace in both Angular and Django template
+
+**Important:** The favicon must be changed in **two places**. Changing only `src-ui/src/index.html` fixes the Angular dev server (`ng serve`) but not Django or production, because Django serves its own template as the page entry point — it does not use the Angular-compiled `index.html`.
+
+**File 1:** `src-ui/src/index.html` (affects `ng serve` / localhost:4200 only)
+
+```html
+<!-- BEFORE -->
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+
+<!-- AFTER -->
+<link rel="icon" type="image/jpeg" href="assets/zabbu-logo.jpg">
+```
+
+Place the favicon file at `src-ui/src/assets/zabbu-logo.jpg`.
+
+**File 2:** `src/documents/templates/index.html` (affects Django / production)
+
+```html
+<!-- BEFORE -->
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+
+<!-- AFTER -->
+<link rel="icon" type="image/jpeg" href="{% static 'frontend/assets/zabbu-logo.jpg' %}">
+```
+
+The `{% static 'frontend/assets/...' %}` path works because `ng build --configuration production` outputs compiled Angular assets to `src/documents/static/frontend/`, which Django's static file serving picks up.
+
+---
+
+## 8. Register the `file-earmark-pdf` icon (if adding PDF Tools nav item)
 
 **File:** `src-ui/src/main.ts`
 
@@ -200,7 +230,9 @@ Without this, `<i-bs name="file-earmark-pdf">` renders as an empty element with 
 | `src-ui/src/app/components/app-frame/app-frame.component.html` | Navbar logo, user dropdown, sidebar bottom, version footer |
 | `src-ui/src/app/components/admin/settings/settings.component.html` | Removed Django Admin button |
 | `src-ui/src/main.ts` | Registered `fileEarmarkPdf` icon |
-| `src/documents/templates/index.html` | Loading screen text and logo |
+| `src-ui/src/index.html` | Favicon (affects ng serve / dev only) |
+| `src-ui/src/assets/zabbu-logo.jpg` | Custom favicon asset |
+| `src/documents/templates/index.html` | Loading screen text + favicon (affects Django / production) |
 
 ---
 
