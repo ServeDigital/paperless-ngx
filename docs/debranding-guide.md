@@ -188,7 +188,7 @@ Place the favicon file at `src-ui/src/assets/zabbu-logo.jpg`.
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 
 <!-- AFTER -->
-<link rel="icon" type="image/jpeg" href="{% static 'frontend/assets/zabbu-logo.jpg' %}">
+<link rel="icon" type="image/jpeg" href="{% static 'frontend/en-US/assets/zabbu-logo.jpg' %}">
 ```
 
 The `{% static 'frontend/assets/...' %}` path works because `ng build --configuration production` outputs compiled Angular assets to `src/documents/static/frontend/`, which Django's static file serving picks up.
